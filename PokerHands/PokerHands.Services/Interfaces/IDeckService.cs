@@ -5,5 +5,5 @@ public interface IDeckService
 {
     public IReadOnlyList<Card> GetPokerDeck();
     public IReadOnlyList<Card> ShuffleDeck(IReadOnlyList<Card> deck);
-    public void DealDeckToPlayers(IReadOnlyList<Card> deck, IReadOnlyList<Player> players);
+    public List<Player> DealDeckToPlayers(IReadOnlyList<Card> deck, IReadOnlyList<Player> players);
 }

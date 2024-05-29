@@ -11,29 +11,35 @@ public class PlayerHand
 
     public const int GetMaxNumberOfCardsAllowedInHand = 5;
 
-    public void AddCardToHand(Card card)
+    public void AddCardsToHand(List<Card> cards)
     {
         var copiedCards = Cards.ToList();
-        if(copiedCards.Count == GetMaxNumberOfCardsAllowedInHand)
-        {
-            throw new Exception($"PlayerHand: Cannot add more than {GetMaxNumberOfCardsAllowedInHand} cards to hand.");
-        }
-        copiedCards.Add(card);
+
+        copiedCards.AddRange(cards);
+        ValidateCardCount(copiedCards.Count);
+
         Cards = copiedCards.AsReadOnly();
     }
 
-    public Card GetHighCard()
+    public void AddCardToHand(Card card)
     {
-        var highCard = Card.GetDefaultCard();
-        foreach(var card in Cards)
-        {
-            if (card.Value <= highCard.Value) continue;
-            highCard = card;
-        }
-        return highCard;
+        var copiedCards = Cards.ToList();
+
+        copiedCards.Add(card);
+        ValidateCardCount(copiedCards.Count);
+
+        Cards = copiedCards.AsReadOnly();
     }
 
     public void AssignHandRank(HandRank handRank) { 
         HandRank = handRank;
+    }
+
+    private void ValidateCardCount(int cardCount)
+    {
+        if (cardCount > GetMaxNumberOfCardsAllowedInHand)
+        {
+            throw new Exception($"PlayerHand: Cannot add more than {GetMaxNumberOfCardsAllowedInHand} cards to hand.");
+        }
     }
 }

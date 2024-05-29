@@ -3,7 +3,7 @@ using PokerHands.Models.Enums;
 using PokerHands.Services.Interfaces;
 
 namespace PokerHands.Services.CoreServices;
-internal class RankHandService : IRankHandService
+public class RankHandService : IRankHandService
 {
     public void RankPlayerHands(List<Player> players)
     {

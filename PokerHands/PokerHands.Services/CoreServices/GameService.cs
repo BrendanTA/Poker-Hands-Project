@@ -2,7 +2,7 @@
 using PokerHands.Services.Interfaces;
 
 namespace PokerHands.Services.CoreServices;
-internal class GameService : IGameService
+public class GameService : IGameService
 {
     private readonly IDeckService _deckService;
     private readonly IRankHandService _rankHandService;
@@ -29,10 +29,10 @@ internal class GameService : IGameService
         var shuffledPokerDeck = _deckService.ShuffleDeck(pokerDeck);
 
         //Deal the cards
-        _deckService.DealDeckToPlayers(shuffledPokerDeck, players);
+        var updatedPlayers = _deckService.DealDeckToPlayers(shuffledPokerDeck, players);
 
         //Rank the hands
-        _rankHandService.RankPlayerHands(players);
+        _rankHandService.RankPlayerHands(updatedPlayers);
 
         //Compare the hands
         var winningPlayer = _compareHandService.DetermineWinningPlayer(players);
