@@ -9,17 +9,14 @@ public class PlayerHand
 
     public string HandRankDisplayName => Enum.GetName(typeof(HandRank), HandRank) ?? string.Empty;
 
-    public static int GetMaxNumberOfCardsAllowedInHand()
-    {
-        return 5;
-    }
+    public const int GetMaxNumberOfCardsAllowedInHand = 5;
 
     public void AddCardToHand(Card card)
     {
         var copiedCards = Cards.ToList();
-        if(copiedCards.Count == 5)
+        if(copiedCards.Count == GetMaxNumberOfCardsAllowedInHand)
         {
-            throw new Exception($"PlayerHand: Cannot add more than {GetMaxNumberOfCardsAllowedInHand()} cards to hand.");
+            throw new Exception($"PlayerHand: Cannot add more than {GetMaxNumberOfCardsAllowedInHand} cards to hand.");
         }
         copiedCards.Add(card);
         Cards = copiedCards.AsReadOnly();
@@ -28,7 +25,7 @@ public class PlayerHand
     public Card GetHighCard()
     {
         var highCard = Card.GetDefaultCard();
-        foreach(Card card in Cards)
+        foreach(var card in Cards)
         {
             if (card.Value <= highCard.Value) continue;
             highCard = card;

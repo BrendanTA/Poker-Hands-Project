@@ -13,14 +13,14 @@ internal class RankHandService : IRankHandService
         }
     }
 
-    private HandRank EvaluateHand(PlayerHand playerHand)
+    public HandRank EvaluateHand(PlayerHand playerHand)
     {
         //This could be optimized to not loop as much, but considering the hand size is 5, there shouldn't be an issue here.
         var cardsGroupedByValue = playerHand.Cards.GroupBy(card => card.Value);
         var cardsGroupedBySuit = playerHand.Cards.GroupBy(card => card.Suit);
 
-        bool isFlush = cardsGroupedBySuit.Any(group => group.Count() == 5);
-        bool isStraight = IsStraight(cardsGroupedByValue.Select(group => group.Key));
+        var isFlush = cardsGroupedBySuit.Any(group => group.Count() == 5);
+        var isStraight = IsStraight(cardsGroupedByValue.Select(group => group.Key));
 
         if (isStraight && isFlush)
             return HandRank.StraightFlush;
@@ -49,12 +49,12 @@ internal class RankHandService : IRankHandService
         return HandRank.HighCard;
     }
 
-    private static bool IsStraight(IEnumerable<CardValue> values)
+    private static bool IsStraight(IEnumerable<CardValue> cardValues)
     {
-        List<CardValue> sortedValues = values.OrderBy(v => v).ToList();
-        for (int i = 1; i < sortedValues.Count; i++)
+        var sortedCardValues = cardValues.OrderBy(v => v).ToList();
+        for (int i = 1; i < sortedCardValues.Count; i++)
         {
-            if ((int)sortedValues[i] - (int)sortedValues[i - 1] != 1)
+            if ((int)sortedCardValues[i] - (int)sortedCardValues[i - 1] != 1)
                 return false;
         }
         return true;
