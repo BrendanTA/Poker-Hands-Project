@@ -1,13 +1,19 @@
 ﻿using PokerHands.Models;
 using PokerHands.Models.Enums;
 using PokerHands.Services.CoreServices;
+using PokerHands.Services.Interfaces;
 
 namespace PokerHands.Tests;
 
 [TestClass]
 public class RankHandServiceTests
 {
-    private readonly RankHandService _rankHandService = new();
+    private readonly IRankHandService _rankHandService;
+
+    public RankHandServiceTests()
+    {
+        _rankHandService = new RankHandService();
+    }
 
     [TestMethod]
     public void EvaluateHand_StraightFlush()
@@ -171,40 +177,4 @@ public class RankHandServiceTests
         Assert.AreEqual(HandRank.StraightFlush, players[0].Hand.HandRank);
         Assert.AreEqual(HandRank.Pair, players[1].Hand.HandRank);
     }
-
-    //[TestMethod]
-    //public void RankPlayerHands_AssignsRankToPlayerHands()
-    //{
-    //    var players = new List<Player>
-    //    {
-    //        new Player
-    //        {
-    //            Name = "Ted",
-    //            Hand = new PlayerHand()
-    //        },
-    //        new Player
-    //        {
-    //            Name = "Louis",
-    //            Hand = new PlayerHand()
-    //        }
-    //    };
-
-    //    players[0].Hand.AddCardToHand(new Card { Suit = CardSuit.Hearts, Value = CardValue.Two });
-    //    players[0].Hand.AddCardToHand(new Card { Suit = CardSuit.Diamonds, Value = CardValue.Three });
-    //    players[0].Hand.AddCardToHand(new Card { Suit = CardSuit.Spades, Value = CardValue.Five });
-    //    players[0].Hand.AddCardToHand(new Card { Suit = CardSuit.Clubs, Value = CardValue.Nine });
-    //    players[0].Hand.AddCardToHand(new Card { Suit = CardSuit.Diamonds, Value = CardValue.King });
-
-
-    //    players[1].Hand.AddCardToHand(new Card { Suit = CardSuit.Clubs, Value = CardValue.Two });
-    //    players[1].Hand.AddCardToHand(new Card { Suit = CardSuit.Hearts, Value = CardValue.Three });
-    //    players[1].Hand.AddCardToHand(new Card { Suit = CardSuit.Spades, Value = CardValue.Four });
-    //    players[1].Hand.AddCardToHand(new Card { Suit = CardSuit.Clubs, Value = CardValue.Eight });
-    //    players[1].Hand.AddCardToHand(new Card { Suit = CardSuit.Hearts, Value = CardValue.Ace });
-
-    //    _rankHandService.RankPlayerHands(players);
-
-    //    Assert.AreEqual(HandRank.HighCard, players[0].Hand.HandRank);
-    //    Assert.AreEqual(HandRank.HighCard, players[1].Hand.HandRank);
-    //}
 }

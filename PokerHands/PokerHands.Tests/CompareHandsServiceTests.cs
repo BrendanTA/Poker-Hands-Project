@@ -1,14 +1,21 @@
 ﻿using PokerHands.Models.Enums;
 using PokerHands.Models;
 using PokerHands.Services.CoreServices;
+using PokerHands.Services.Interfaces;
 
 namespace PokerHands.Tests;
 
 [TestClass]
 public class CompareHandsServiceTests
 {
-    private readonly CompareHandsService _compareHandsService = new();
-    private readonly RankHandService _rankHandService = new();
+    private readonly IRankHandService _rankHandService;
+    private readonly ICompareHandsService _compareHandsService;
+
+    public CompareHandsServiceTests()
+    {
+        _rankHandService = new RankHandService();
+        _compareHandsService = new CompareHandsService();
+    }
 
     [TestMethod]
     public void DetermineWinningPlayer_HighCardVsHighCard_ReturnsPlayerWithHigherCard()

@@ -1,13 +1,21 @@
 ﻿using PokerHands.Models;
 using PokerHands.Models.Enums;
 using PokerHands.Services.CoreServices;
+using PokerHands.Services.Interfaces;
 
 namespace PokerHands.Tests;
 
 [TestClass]
 public class DeckServiceTests
 {
-    private readonly DeckService _deckService = new();
+    private readonly IDeckService _deckService;
+
+    public DeckServiceTests()
+    {
+        _deckService = new DeckService();
+    }
+
+
     [TestMethod]
     public void GetPokerDeck_ReturnsFullDeckOf52CardsWithCorrectValuesAndSuits()
     {
