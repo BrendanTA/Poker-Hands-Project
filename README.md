@@ -17,6 +17,7 @@ A poker hand belonging to a player (which need only be tracked as a name; names 
 7. Full House. Three cards of the same value, with the remaining two cards forming a pair. Ranked by the value of the three cards.
 8. Four of a Kind. Four cards with the same value. Ranked by the value of the four cards.
 9. Straight Flush. Five cards of the same suit with consecutive values. Ranked by the highest card in the hand.
+
 The program needs to evaluate a pair of poker hands and to indicate which, if either, has a higher rank. You should include the winner's name as part of the resulting output.
 For example, if the hand belonging to "Ted" contains "2H", "3D", "5S", "9C", "KD", and the hand belonging to "Louis" contains "2C", "3H", "4S", "8C", "AH", then Ted has a HighCard, and Louis also has a HighCard, and Louis wins because his HighCard is of higher rank than Ted's.
 
